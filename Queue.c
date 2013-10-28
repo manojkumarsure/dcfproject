@@ -72,12 +72,12 @@ Pop an item at an end of the Queue
 @return: return the current pointer of the list
 */
 Queue* queue_dequeue( Queue* st ){
-	if(queue_size(st)==0)
+	if(st==NULL)
 		return st;
 	Node* temp;
-		temp=st->head->next;
-		free(st->head->data);free(st->head);
-		st->head=temp;
+		temp=st->head;
+		st->head=temp->next;
+		free(temp);
 	return st;
 
 }
@@ -99,9 +99,11 @@ To get value the value of the list at end of the Queue
 @param: takes  a pointer to Queue and pointer to the integer to set the existence of the top value
 @return: returns value of data item at the end of the Queue
 */
-char* queue_top( Queue* st, int* error ){
-	if(queue_size(st)==0)
+char *queue_top( Queue* st, int* error ){
+	if(st==NULL){
 		*error=1;
+             return NULL;
+	}
 	else{
 		*error=0;
 	return st->head->data;
