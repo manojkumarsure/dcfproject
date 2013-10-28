@@ -11,11 +11,10 @@ Make a new node for the Queue and intitalize with data and its next pointer
 @param: takes data value and pointer to next node
 @return: return the current pointer of the node item
 */
-Node* node_new( char* data, Node* next ){
-	Node* temp;
-		temp=(Node*)malloc(sizeof(Node));
-		temp->data=(char*)malloc(sizeof(char)*strlen(data)+1);
-		strcpy(temp->data,data);
+Node* node_new( char* str_data, Node* next ){
+	Node* temp=malloc(sizeof(Node));
+		temp->data=(char*)malloc(sizeof(char)*strlen(str_data)+1);
+		strcpy(temp->data,str_data);
 		temp->next=next;
 	return temp;
 
@@ -28,8 +27,7 @@ Make a new Queue and allocates memory for the pointer and returns it
 */
 
 Queue* queue_new(){
-	Queue *temp;
-		temp=(Queue*)malloc(sizeof(Queue));
+	Queue *temp=malloc(sizeof(Queue));
 		temp->head=temp->tail=NULL;
 	return temp;
 }
