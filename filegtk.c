@@ -4,7 +4,7 @@ GtkWidget *entry;
 void choose_file()
 {
 	GtkWidget* dialog;
-	dialog=gtk_file_chooser_dialog_new("just choose a file",GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_OPEN,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
+	dialog=gtk_file_chooser_dialog_new("just choose a file",GTK_WINDOW(window),GTK_FILE_CHOOSER_ACTION_SELECT_FOLDER,GTK_STOCK_CANCEL,GTK_RESPONSE_CANCEL,
 		GTK_STOCK_OPEN,GTK_RESPONSE_ACCEPT,NULL);
 	if(gtk_dialog_run(GTK_DIALOG(dialog))==GTK_RESPONSE_ACCEPT)
 	{
