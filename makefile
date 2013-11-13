@@ -1,25 +1,25 @@
-# Makefile
-#
-
-SH = bash
 CC = gcc
 
-main: bst_main.o \
-	   	  bst.o
-	$(CC) -o  $@ $^
+SH =bash
+all:musiclib
+musiclib: new.o \
+	   	  Queue.o
+	$(CC) -g -o $@ $^ `pkg-config --libs --cflags gtk+-2.0` -lmp
 
-bst_main.o: bst_main.c \
-			bst.h
-	$(CC) -o  $@ -c $<
+new.o:media_library.c \
+			Queue.h
+	$(CC) -g -o $@ -c $< `pkg-config --libs --cflags gtk+-2.0` -lmp
 
-bst.o: bst.c \
-	   bst.h
-	$(CC) -o  $@ -c $<
+Queue.o: Queue.c \
+	   Queue.h
+	$(CC) -g  -o $@ -c $<
 
-test: main
-	$(SH) tests/run_tests.sh
+clean :
+		rm -rf *.o *.out global_songs.txt Artists.txt Albums.txt
 
-clean:
-	rm -rf *.o
-	rm -rf main
-	rm -rf tests/*_
+install: all
+	sudo cp musiclib /usr/bin/
+	sudo cp Music* /usr/share/applications/
+uninstall:
+	sudo rm -f /usr/bin/musiclib
+	sudo rm  -f /usr/share/applications/Music*
