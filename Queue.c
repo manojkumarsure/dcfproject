@@ -11,12 +11,13 @@ Make a new node for the Queue and intitalize with data and its next pointer
 @param: takes data value and pointer to next node
 @return: return the current pointer of the node item
 */
-Node* node_new( char* str_data, Node* next ){
-	Node* temp=malloc(sizeof(Node));
-		temp->data=(char*)malloc(sizeof(char)*strlen(str_data)+1);
-		strcpy(temp->data,str_data);
-		temp->next=next;
-	return temp;
+Node* node_new( char* data, Node* next ){
+        Node* temp;
+                temp=(Node*)malloc(sizeof(Node));
+                temp->data=(char*)malloc(sizeof(char)*strlen(data)+1);
+                strcpy(temp->data,data);
+                temp->next=next;
+        return temp;
 
 }
 
@@ -27,9 +28,10 @@ Make a new Queue and allocates memory for the pointer and returns it
 */
 
 Queue* queue_new(){
-	Queue *temp=malloc(sizeof(Queue));
-		temp->head=temp->tail=NULL;
-	return temp;
+        Queue *temp;
+                temp=(Queue*)malloc(sizeof(Queue));
+                temp->head=temp->tail=NULL;
+        return temp;
 }
 
 /*
@@ -40,12 +42,12 @@ returns the size of the Queue by traversing by a while loop
 
 int queue_size( Queue* st ){
 int i=0;
-		Node *temp=st->head;
-			while(temp!=NULL){
-				i++;
-				temp=temp->next;
-			}
-	return i;
+                Node *temp=st->head;
+                        while(temp!=NULL){
+                                i++;
+                                temp=temp->next;
+                        }
+        return i;
 
 }
 /*
@@ -54,14 +56,14 @@ Push a node at the end of Queue
 @return: return the current pointer of the Queue
 */
 Queue* queue_enqueue( Queue* st, char *string ){
-	if(queue_size(st)==0){
-		st->head=node_new(string,NULL);
-		st->tail=st->head;
-	return st;
-	}
+        if(queue_size(st)==0){
+                st->head=node_new(string,NULL);
+                st->tail=st->head;
+        return st;
+        }
 
-	st->tail->next=node_new(string,NULL);
-	st->tail=st->tail->next;
+        st->tail->next=node_new(string,NULL);
+        st->tail=st->tail->next;
 return st;
 
 }
@@ -72,13 +74,13 @@ Pop an item at an end of the Queue
 @return: return the current pointer of the list
 */
 Queue* queue_dequeue( Queue* st ){
-	if(st==NULL)
-		return st;
-	Node* temp;
-		temp=st->head;
-		st->head=temp->next;
-		free(temp);
-	return st;
+        if(queue_size(st)==0)
+                return st;
+        Node* temp;
+                temp=st->head->next;
+                free(st->head->data);free(st->head);
+                st->head=temp;
+        return st;
 
 }
 /*
@@ -88,10 +90,10 @@ Prints the data value of the list
 */
 void queue_print( Queue* st ){
 Node *temp=st->head;
-		while(temp!=NULL){
-			printf("%s ",temp->data);
-			temp=temp->next;
-		}
+                while(temp!=NULL){
+                        printf("%s ",temp->data);
+                        temp=temp->next;
+                }
 
 }
 /*
@@ -99,15 +101,13 @@ To get value the value of the list at end of the Queue
 @param: takes  a pointer to Queue and pointer to the integer to set the existence of the top value
 @return: returns value of data item at the end of the Queue
 */
-char *queue_top( Queue* st, int* error ){
-	if(st==NULL){
-		*error=1;
-             return NULL;
-	}
-	else{
-		*error=0;
-	return st->head->data;
-	}
+char* queue_top( Queue* st, int* error ){
+        if(queue_size(st)==0)
+                *error=1;
+        else{
+                *error=0;
+        return st->head->data;
+        }
 }
 /*
 Delete entire Queue by freeing the allocated memory
@@ -116,9 +116,10 @@ Delete entire Queue by freeing the allocated memory
 */
 void queue_delete( Queue* q ){
 
-	while(q->head!=NULL)
-	queue_dequeue(q);
+        while(q->head!=NULL)
+        queue_dequeue(q);
 
 //free(q); //here queue is not released
 }
+
 
