@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Name=Music_Library
+Exec=/usr/bin/musiclib
+Icon=musicplayer.png
+Type=Application
+Categories=Application;
+Name[en_IN]=Music library
