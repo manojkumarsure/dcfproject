@@ -254,8 +254,15 @@ void paneup(char* file)
 				str_pro(s1);
 				str_pro(s2);
 				str_pro(s3);
-				char*d[4]={s1,s2,s3,s4};
-				gtk_clist_append(GTK_CLIST(songs),d);
+				str_pro(s4);
+				FILE* fpp;
+				fpp=fopen(s4,"rb");
+				if(fpp!=NULL)
+				{
+					char*d[4]={s1,s2,s3,s4};
+					gtk_clist_append(GTK_CLIST(songs),d);
+					fclose(fpp);
+				}
 		}
 	}
 	else
